@@ -51,7 +51,9 @@ document
     item.addEventListener("click", handleSelectedItem)
   }
 
-  let selectedItems = [1,2,3,4,5,6]
+  const collectedItems = document.querySelector("input[name=items]")
+
+  let selectedItems = []
 
   function handleSelectedItem(event) {
     const itemLi = event.target
@@ -64,15 +66,22 @@ document
     // verificar de existe items selecionados, se sim
     // pegar os items selecionados
     const alreadySelected = selectedItems.findIndex( function(item){
-      const itemFound = item === itemId
+      const itemFound = item === itemId //isso será true ou false
       return itemFound
     })
-
-
     // se já estiver selecionado, tirar da seleção
-
-    // se não estiver selecioando, adicionar à seleção
+    if(alreadySelected >= 0 ){
+      // tirar da seleção
+      const filteredItems = selectedItems.filter( item => {
+        const itemIsDifferent = item != itemId //false
+        return itemIsDifferent
+      })
+      selectedItems = filteredItems
+    } else
+      // se não estiver selecioando
+      // adicionar à seleção
+      selectedItems.push(itemId)
 
     // atualizar o campo escolhido com os itens selecionados
-
+    collectedItems.value = selectedItems
   }
